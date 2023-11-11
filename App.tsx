@@ -5,9 +5,10 @@
  * @format
  */
 
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import React from 'react';
 import type {PropsWithChildren} from 'react';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   SafeAreaView,
   ScrollView,
@@ -26,6 +27,14 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import {NavigationContainer} from '@react-navigation/native';
+import ChatScreen from './ChatScreen';
+import CallsScreen from './CallsScreen';
+import ContactScreen from './ContactScreen';
+import ProfileScreen from './ProfileScreen';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import SignupForm from './SignUp';
+import auth from '@react-native-firebase/auth';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -78,6 +87,9 @@ function Tweet() {
   );
 }
 
+const Tab = createBottomTabNavigator();
+// const Stack = createNativeStackNavigator();
+
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -85,42 +97,50 @@ function App(): JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  // useEffect(() => {
+  //   // Check if the user is logged in using Firebase or your authentication system
+  //   const unsubscribe = auth().onAuthStateChanged(user => {
+  //     if (user) {
+  //       setLoggedIn(true); // User is logged in
+  //     } else {
+  //       setLoggedIn(false); // User is not logged in
+  //     }
+  //   });
+
+  //   // Unsubscribe from the authentication listener when the component unmounts
+  //   return () => unsubscribe();
+  // }, []);
+
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
+    <>
+      <AppHeader title="Whatsapp" />
+      {loggedIn ? <App /> : <SignupForm />}
 
-          <Tweet />
-
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+      <NavigationContainer>
+        <Tab.Navigator>
+          <Tab.Screen name="Chats" component={ChatScreen} />
+          <Tab.Screen name="Calls" component={CallsScreen} />
+          <Tab.Screen name="Contact" component={ContactScreen} />
+          <Tab.Screen name="Profile" component={ProfileScreen} />
+        </Tab.Navigator>
+        {/* <Stack.Navigator initialRouteName="Chat">
+          <Stack.Screen name="Chat" component={ChatScreen} />
+          <Stack.Screen name="Calls" component={CallsScreen} />
+        </Stack.Navigator> */}
+      </NavigationContainer>
+    </>
   );
 }
+
+const AppHeader: React.FC<{title: string}> = ({title}) => {
+  return (
+    <View style={styles.header}>
+      <Text style={styles.title}>{title}</Text>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -138,6 +158,14 @@ const styles = StyleSheet.create({
   },
   highlight: {
     fontWeight: '700',
+  },
+  title: {
+    color: 'white',
+    fontSize: 20,
+  },
+  header: {
+    backgroundColor: '#128C7E',
+    padding: 20,
   },
 });
 
