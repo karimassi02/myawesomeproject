@@ -48,11 +48,11 @@ const SignupForm = () => {
           placeholder="Phone Number"
           value={phoneNumber}
           onChangeText={text => setPhoneNumber(text)}
+          keyboardType="phone-pad"
         />
-        {/* <Button
-          title="Profile Picture" /*onPress={(selectAvatar) =>  Implement avatar selection }
-          /> */}
+        <Button title="Profile Picture" onPress={selectAvatar} />
         {avatar && <Image source={avatar} style={{width: 100, height: 100}} />}
+
         <TextInput
           placeholder="Description"
           value={description}
