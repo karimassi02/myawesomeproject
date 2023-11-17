@@ -135,6 +135,7 @@ function App(): JSX.Element {
 }
 
 const AppHeader: React.FC<{title: string}> = ({title}) => {
+  //reactfc c'est du typescript qui a fixé erreur
   return (
     <View style={styles.header}>
       <Text style={styles.title}>{title}</Text>

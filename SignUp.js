@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {View, TextInput, Button, Image, Text} from 'react-native';
-import ImagePicker from 'react-native-image-picker';
+import {showImagePicker} from 'react-native-image-picker';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 const SignupForm = () => {
   const [name, setName] = useState('');
@@ -20,7 +21,7 @@ const SignupForm = () => {
       },
     };
 
-    ImagePicker.showImagePicker(options, response => {
+    launchImageLibrary(options, response => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
@@ -60,10 +61,6 @@ const SignupForm = () => {
           multiline
         />
         <Button title="Sign Up" onPress={handleSignup} />
-      </View>
-      <View>
-        {avatar && <Image source={avatar} style={{width: 100, height: 100}} />}
-        <Button title="Pick Avatar" onPress={selectAvatar} />
       </View>
     </>
   );
