@@ -1,138 +1,51 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import {useState, useEffect} from 'react';
 import React from 'react';
 import type {PropsWithChildren} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   useColorScheme,
   View,
   TextInput,
+  Button,
 } from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+// import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import ChatScreen from './ChatScreen';
 import CallsScreen from './CallsScreen';
 import ContactScreen from './ContactScreen';
 import ProfileScreen from './ProfileScreen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import SignupForm from './SignUp';
 import auth from '@react-native-firebase/auth';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
 
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
 
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-function Tweet() {
-  const [name, setName] = useState('');
-  const maxLength = 140;
-  const words = name.split(' ').filter(Boolean).length;
-  const sentences = name.split('.').filter(Boolean).length; // a changer
+// const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
+const App = () => {
   return (
     <>
-      <TextInput
-        placeholder="Enter text"
-        value={name}
-        onChangeText={text => setName(text)}
-      />
-      <Text> My name is : {name}</Text>
-      <Text>Number of characters : {name.length}</Text>
-      <Text>Number of words : {words}</Text>
-      <Text>Number of sentences : {sentences}</Text>
-      <Text> / {maxLength - name.length}</Text>
-    </>
-  );
-}
-
-const Tab = createBottomTabNavigator();
-// const Stack = createNativeStackNavigator();
-
-function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  // useEffect(() => {
-  //   // Check if the user is logged in using Firebase or your authentication system
-  //   const unsubscribe = auth().onAuthStateChanged(user => {
-  //     if (user) {
-  //       setLoggedIn(true); // User is logged in
-  //     } else {
-  //       setLoggedIn(false); // User is not logged in
-  //     }
-  //   });
-
-  //   // Unsubscribe from the authentication listener when the component unmounts
-  //   return () => unsubscribe();
-  // }, []);
-
-  return (
-    <>
-      <AppHeader title="Whatsapp" />
-      {loggedIn ? <App /> : <SignupForm />}
-
+      <Button title="hello" onPress={() => console.log('hello world')}></Button>
       <NavigationContainer>
-        <Tab.Navigator>
+        <Stack.Navigator>
+          <Stack.Screen name="signIn" component={SignIn} />
+          <Stack.Screen name="signUp" component={SignUp} />
+        </Stack.Navigator>
+        {/* <Tab.Navigator>
           <Tab.Screen name="Chats" component={ChatScreen} />
           <Tab.Screen name="Calls" component={CallsScreen} />
           <Tab.Screen name="Contact" component={ContactScreen} />
-          <Tab.Screen name="Profile" component={ProfileScreen} />
-        </Tab.Navigator>
-        {/* <Stack.Navigator initialRouteName="Chat">
-          <Stack.Screen name="Chat" component={ChatScreen} />
-          <Stack.Screen name="Calls" component={CallsScreen} />
-        </Stack.Navigator> */}
+        </Tab.Navigator> */}
       </NavigationContainer>
     </>
   );
-}
+};
 
 const AppHeader: React.FC<{title: string}> = ({title}) => {
   //reactfc c'est du typescript qui a fixé erreur
@@ -163,6 +76,7 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontSize: 20,
+    textAlign: 'center',
   },
   header: {
     backgroundColor: '#128C7E',

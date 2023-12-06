@@ -5,7 +5,7 @@ import {View, Text, Button} from 'react-native';
 function CallsScreen({navigation}) {
   return (
     <View>
-      <Text>Call Screen</Text>
+      {/* <Text>Call Screen</Text> */}
       <Button
         title="Go to Calls"
         onPress={() => navigation.navigate('Calls')}
