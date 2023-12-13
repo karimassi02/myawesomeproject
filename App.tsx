@@ -2,28 +2,19 @@ import {useState, useEffect} from 'react';
 import React from 'react';
 import type {PropsWithChildren} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-  TextInput,
-  Button,
-} from 'react-native';
+import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
 // import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import ChatScreen from './ChatScreen';
 import CallsScreen from './CallsScreen';
 import ContactScreen from './ContactScreen';
 import ProfileScreen from './ProfileScreen';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import auth from '@react-native-firebase/auth';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createStackNavigator} from '@react-navigation/stack';
 
 // const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -31,10 +22,13 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <>
-      <Button title="hello" onPress={() => console.log('hello world')}></Button>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="signIn" component={SignIn} />
+          <Stack.Screen
+            name="signIn"
+            component={SignIn}
+            options={{headerShown: false}}
+          />
           <Stack.Screen name="signUp" component={SignUp} />
         </Stack.Navigator>
         {/* <Tab.Navigator>
@@ -57,22 +51,6 @@ const AppHeader: React.FC<{title: string}> = ({title}) => {
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
   title: {
     color: 'white',
     fontSize: 20,

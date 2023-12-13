@@ -127,3 +127,15 @@ function Tweet() {
 //     </>
 //   );
 // }
+
+// <Pressable
+//         style={styles.test}
+//         onPress={() => navigation.navigate('signUp')}>
+//         <Text> Go to sign up </Text>
+//       </Pressable>
+//       <Button
+//         style={styles.test}
+//         title="go to singup"
+//         onPress={() => navigation.navigate('signUp')}>
+//         &gt;
+//       </Button>
