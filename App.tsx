@@ -1,6 +1,5 @@
-import {useState, useEffect} from 'react';
 import React from 'react';
-import type {PropsWithChildren} from 'react';
+
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
 // import 'react-native-gesture-handler';
@@ -14,7 +13,6 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {createStackNavigator} from '@react-navigation/stack';
 
 // const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -29,7 +27,11 @@ const App = () => {
             component={SignIn}
             options={{headerShown: false}}
           />
-          <Stack.Screen name="signUp" component={SignUp} />
+          <Stack.Screen
+            name="signUp"
+            component={SignUp}
+            options={{headerShown: false}}
+          />
         </Stack.Navigator>
         {/* <Tab.Navigator>
           <Tab.Screen name="Chats" component={ChatScreen} />

@@ -1,11 +1,10 @@
 import React from 'react';
 import {Text, StyleSheet, View, Button, Image, TextInput} from 'react-native';
-// import './assets/images/Karim.png'
 
 const SignIn = ({navigation}) => {
   function navigate() {
-    console.log('Button pressed');
     navigation.navigate('signUp');
+    console.log('Buttonpressed');
   }
 
   return (
@@ -24,12 +23,20 @@ const SignIn = ({navigation}) => {
             placeholder="Email Address"></TextInput>
           <TextInput
             style={styles.inputStyle}
-            placeholder="Password"></TextInput>
+            placeholder="Password"
+            secureTextEntry={true}></TextInput>
+          <Button title="Log In" color="black" backgroundColor="white" />
+        </View>
+        <View style={styles.signUpView}>
+          <Text style={styles.signUpText}>
+            {' '}
+            Don't have an account ? Create one now !{' '}
+          </Text>
           <Button
-            title="Log In"
+            title="Sign Up"
             onPress={navigate}
-            style={styles.buttonStyle}
-          />
+            color="black"
+            backgroundColor="white"></Button>
         </View>
       </View>
     </View>
@@ -84,10 +91,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 30,
   },
-  buttonStyle: {
-    backgroundColor: 'black',
-    color: 'white',
-    width: 100,
+  signUpView: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingTop: 15,
+  },
+  signUpText: {
+    paddingBottom: 15,
   },
 });
 export default SignIn;
